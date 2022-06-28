@@ -1,0 +1,16 @@
+{% from "macros/dict_viewer/dict_viewer_icon.html" import dict_viewer_icon with context %}
+{% from "macros/dict_viewer/dict_viewer_small.html" import dict_viewer_small with context %}
+{% from "macros/dict_viewer/dict_viewer_medium.html" import dict_viewer_medium with context %}
+{% from "macros/dict_viewer/dict_viewer_large.html" import dict_viewer_large with context %}
+
+{% macro dict_viewer(dict, size) %}
+    {% if size == "icon" %}
+        {{ dict_viewer_icon(dict) }}
+    {% elif size == "small" %}
+        {{ dict_viewer_small(dict) }}
+    {% elif size == "medium" %}
+        {{ dict_viewer_medium(dict) }}
+    {% elif size == "large" %}
+        {{ dict_viewer_large(dict) }}
+    {% endif %}
+{% endmacro %}

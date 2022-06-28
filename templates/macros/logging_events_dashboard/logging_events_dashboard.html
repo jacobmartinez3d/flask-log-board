@@ -1,0 +1,37 @@
+{% from "macros/dict_viewer/dict_viewer.html" import dict_viewer with context %}
+
+{% macro logging_events_dashboard(log_events) %}
+    <ul class="list-group">
+    {% for log_event in log_events %}
+
+        <li class="list-group-item bg-{{log_event.logging_level.name.lower()}}" type="button" data-toggle="collapse" data-target="#collapse_{{log_event.id}}" aria-expanded="false" aria-controls="collapse_{{log_event.id}}">
+            <span class="badge text-light bg-{{log_event.logging_level.name.lower()}} p-2 mr-3">
+                {{log_event.filename}}
+            </span>
+            
+            <span class="badge alert-{{log_event.logging_level.name.lower()}} mx-3">
+                {{ log_event.logging_level.name }}
+            </span>
+
+            <pre id="json" class="text-wrap text-left mx-2 p-2">
+                {% if log_event.msg is mapping %}
+                {{ dict_viewer(log_event.msg, "icon") }}
+                {% else %}
+                "{{log_event.msg}}"
+                {% endif %}
+            </pre>
+
+            <span class="badge mx-2 p-2">
+                {{log_event.pathname}}
+            </span>
+
+            <div class="collapse" id="collapse_{{log_event.id}}">
+                <div class="card card-body">
+                    {{ dict_viewer(log_event.__dict__, "medium") }}
+                </div>
+            </div>
+
+        </li>
+    {% endfor %}
+    </ul>
+{% endmacro %}

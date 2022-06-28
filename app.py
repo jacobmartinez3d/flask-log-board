@@ -29,7 +29,7 @@ def index():
     db = DB()
     db.connect()
     template = render_template(
-        'pages/index.html',
+        'pages/home.html',
         # TODO: need filter here to only grab certain amount
         log_events = db.query(entities.LoggingEvent).all()
     )
@@ -40,7 +40,6 @@ def index():
 def handle_logging_event(data):
     db = DB()
     db.connect()
-    print("PING")
     log_record, username = data.values()
     db.submit_new_logging_event(log_record, username)
     db.disconnect()
